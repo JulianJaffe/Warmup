@@ -73,7 +73,7 @@ class User(models.Model):
         noFailed = -1
         noTests = -1
         try:
-            output = subprocess.check_output(["python27", "manage.py", "test"], stderr = subprocess.STDOUT, universal_newlines = True)
+            output = subprocess.check_output(["python", "manage.py", "test"], stderr = subprocess.STDOUT, universal_newlines = True)
             tests = re.compile("Ran (\d+) tests",re.MULTILINE)
             print tests
             r = tests.search(output)
