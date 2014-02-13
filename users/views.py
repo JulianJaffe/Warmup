@@ -45,7 +45,7 @@ def addUser(request):
 def resetFixture(request):
     """Resets the database of users and returns a json object with a successful error code."""
     user = User()
-    result = {'errCode': user.resetFixture(User)}
+    result = {'errCode': user.resetFixture()}
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 @csrf_exempt
