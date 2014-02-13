@@ -35,27 +35,23 @@ class TestLogin(testLib.RestTestCase):
             expected['count']  = count
         self.assertDictEqual(expected, respData)
     
-    def setUp(self, data):
-        """Preloads the database for the login tests. At the moment it just adds what DATA it's given."""
-        self.makeRequest("/users/add", method="POST", data = data)
-    
     def testProper(self):
         """Test that the API properly handles correct behavior."""
         user1 = {'user': 'test1', 'password': 'swordfish'}
-        setUp(user1)
+        self.makeRequest("/users/add", method="POST", data = user1)
         response = self.makeRequest("/users/login", method="POST", data = user1)
         self.assertResponse(response, count=2)
 
     def testBadCreds(self):
         """Test that the API properly handles incorrect behavior."""
         user2 = {'user': 'test2', 'password': ''}
-        setUp(user2)
+        self.makeRequest("/users/add", method="POST", data = user2)
         response = self.makeRequest("/users/login", method="POST", data = {'user': 'test2', 'password': 'pass'})
         self.assertResponse(response, errCode = testLib.RestTestCase.ERR_BAD_CREDENTIALS)
         response = self.makeRequest("/users/login", method="POST", data = {'user': 'test3', 'password': ''})
         self.assertResponse(response, errCode = testLib.RestTestCase.ERR_BAD_CREDENTIALS)
 
-def TestResetFixture(testLib.RestTestCase):
+class TestResetFixture(testLib.RestTestCase):
     """Test the resetFixture behavior."""
     def assertResponse(self, respData, count = None, errCode = testLib.RestTestCase.SUCCESS):
         """
@@ -99,8 +95,6 @@ def TestResetFixture(testLib.RestTestCase):
         self.assertResponse(response, errCode=testLib.RestTestCase.ERR_BAD_CREDENTIALS)
         response = self.makeRequest("/TESTAPI/resetFixture", method="POST", data = {})  #And now the database is empty again
         self.assertResponse(response)
-        response = self.makeRequest("/TESTAPI/unitTests", method="POST", data = {})     #Testing unitTests, just for kicks
-        self.assertResponse(response)
         response = self.makeRequest("/users/login", method="POST", data = user2)        #Since the database is empty, we can't log in any more
         self.assertResponse(response, errCode=testLib.RestTestCase.ERR_BAD_CREDENTIALS)
         response = self.makeRequest("/users/add", method="POST", data = user4)          #But we can still add new users
@@ -136,8 +130,8 @@ class TestAddUser(testLib.RestTestCase):
         """ Test length checking."""
         longstring = 129 * '*'
         response = self.makeRequest("/users/add", method="POST", data = { 'user' : longstring, 'password' : 'password'} )
-        self.assertResponse(response, errCode = testLib.RestTestCase.ERR_BAD_USERNAME)
+        self.assertResponse(response, count=None, errCode = testLib.RestTestCase.ERR_BAD_USERNAME)
         response = self.makeRequest("/users/add", method="POST", data = { 'user' : 'user', 'password' : longstring} )
-        self.assertResponse(response, errCode = testLib.RestTestCase.ERR_BAD_PASSWORD)
+        self.assertResponse(response, count=None, errCode = testLib.RestTestCase.ERR_BAD_PASSWORD)
 
     
