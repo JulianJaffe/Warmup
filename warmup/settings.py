@@ -87,6 +87,7 @@ import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
 
 #Use a sqlite backend for testing
+import sys
 if 'test' in sys.argv:
     DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
 
