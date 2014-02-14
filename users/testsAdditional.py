@@ -208,7 +208,7 @@ class TestAddUser(unittest.TestCase):
         except:
             raise
     
-    def assertResponse(self, respData, count = 1, SUCCESS):
+    def assertResponse(self, respData, count = 1, errcode = SUCCESS):
         """
         Check that the response data dictionary matches the expected values
         """
