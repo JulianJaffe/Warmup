@@ -1,10 +1,13 @@
 {% load staticfiles %}
 
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="{% static 'users/frontend.css' %}" />
+</head>
 
-<h1>{{ Login }}</h1>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<body>
 
 <div id="count" class="core">
   <div class="message" id="count_message">
@@ -16,3 +19,6 @@
     <input type="submit" value="Logout" />
   </form>
 </div>
+
+</body>
+</html>

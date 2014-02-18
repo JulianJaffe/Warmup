@@ -1,10 +1,13 @@
 {% load staticfiles %}
 
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="{% static 'users/frontend.css' %}" />
+</head>
 
-<h1>{{ Login }}</h1>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<body>
 
 <div id="login_form" class="core">
   <div class="message" id="login_message">
@@ -19,5 +22,9 @@
     <input type="password" name="password" maxlength="128" /><br />
     <input type="submit" name="login" value="Login" />
     <input type="submit" name="add" value="Add User" />
+    </center>
   </form>
 </div>
+
+</body>
+</html>
