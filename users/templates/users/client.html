@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'users/frontend.css' %}" />
+
+<h1>{{ Login }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div id="login_form" class="core">
+  <div class="message" id="login_message">
+    <span>Please Enter Your Credentials Below</span>
+  </div>
+  <form action="/client/count" method="post">
+    <center>
+    {% csrf_token %}
+    <label for="username">Username: </label>
+    <input type="text" name="username" maxlength="128" /><br />
+    <label for="password">Password: </label>
+    <input type="password" name="password" maxlength="128" /><br />
+    <input type="submit" name="login" value="Login" />
+    <input type="submit" name="add" value="Add User" />
+  </form>
+</div>

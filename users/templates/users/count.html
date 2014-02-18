@@ -1,0 +1,18 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'users/frontend.css' %}" />
+
+<h1>{{ Login }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div id="count" class="core">
+  <div class="message" id="count_message">
+    <span id="countmsg">{{ msg|safe }}</span>
+  </div>
+  <form action="/client/" method="post">
+    <center>
+    {% csrf_token %}
+    <input type="submit" value="Logout" />
+  </form>
+</div>

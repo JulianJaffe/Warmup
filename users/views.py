@@ -1,11 +1,40 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-import json
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from users.models import User
+import json
 
-def index(request):
-    return render(request, 'users/index.html')
+def client(request):
+    return render(request, 'users/client.html')
+
+def count(request):
+    msg = 'debug'
+    user = User()
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', None)
+        if 'login' in request.POST:
+            res = user.login(username, password)
+            if res > 0:
+                msg = 'Welcome %s<br>You have logged in %s times.' % (username, res)
+            elif res == user.ERR_BAD_CREDENTIALS:
+                msg = 'Invalid username and password combination. Please try again.'
+            else:
+                msg = 'An error occurred. Please try again.'
+        elif 'add' in request.POST:
+            res = user.add(username, password)
+            if res > 0:
+                msg = 'Welcome %s<br>You have logged in 1 time.' % (username)
+            elif res == user.ERR_BAD_USERNAME:
+                msg = 'The user name should not be empty or longer than 128 characters. Please try again.'
+            elif res == user.ERR_BAD_PASSWORD:
+                msg = 'The password should not be longer than 128 characters. Please try again.'
+            elif res == user.ERR_USER_EXISTS:
+                msg = 'This user name already exists. Please choose another one.'
+            else:
+                msg = 'A error occurred. Please try again.'
+        return render(request, 'users/count.html', {'msg': msg})
+    return HttpResponseRedirect('/client')
 
 @csrf_exempt
 def login(request):

@@ -1,0 +1,9 @@
+Instructions to run locally:
+
+Clone or download the repo from GitHub (https://github.com/JulianJaffe/Warmup)
+
+In settings.py, comment out the block of code that begins "# Parse database configuration" (line 85) and ends on line 92 ("DATABASES['default' = {'ENGINE': 'django.db.backends.sqlite3'}"). Make sure to include the "if 'test' in sys.argv" block.
+
+At the command line, use Python 2.7 to run the command 'python manage.py syncdb'.
+
+At the command line, use Python 2.7 to run the command 'python manage.py runserver' and then point a browser tab to localhost:8000/client.
