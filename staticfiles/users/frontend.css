@@ -1,0 +1,18 @@
+.core {
+    height: 125px;
+    width: 300px;
+    background-color: lightgray;
+    border: thin black solid;
+    margin: 0 auto;
+}
+
+.message {
+    margin: 10px 20px 10px 20px;
+    border: thin black solid;
+    text-align: center;
+}
+
+body {
+	font-family: 'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
